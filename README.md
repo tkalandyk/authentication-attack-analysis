@@ -1,25 +1,48 @@
-Authentication Attack Analysis
-Executive Summary
+🚨 Authentication Attack Analysis
+Incident Response Investigation | Endpoint & Identity Security
+<p align="center"> <img src="https://raw.githubusercontent.com/github/explore/main/topics/security/security.png" width="700"> </p>
+🔎 Executive Summary
 
-An investigation was conducted following suspected abnormal authentication activity targeting an internet-exposed Windows virtual machine (js-mde-test). The activity occurred between December 24 and December 25, 2025, and involved a high volume of failed logon attempts followed by successful interactive access.
+An incident response investigation was conducted after abnormal authentication activity was detected against an internet-exposed Windows virtual machine (js-mde-test).
 
-The investigation focused on determining whether the observed authentication activity resulted in a compromise and whether any malicious post-authentication behavior occurred. Analysis of endpoint authentication logs, process execution telemetry, and outbound network activity found no evidence of malicious persistence, lateral movement, or command-and-control communication.
+Between December 24 and December 25, 2025, the device experienced:
 
-While the activity did not meet the threshold for a confirmed breach, it identified significant exposure risk due to the system’s internet-facing configuration and authentication behavior.
+A high volume of failed logon attempts
 
-Scope of Investigation
+Followed by successful interactive authentication
 
-The investigation focused on the following data sources and activity types:
+Subsequent PowerShell execution
 
-Endpoint authentication telemetry (failed and successful logons)
+The objective of this investigation was to determine whether the authentication activity resulted in a confirmed compromise and whether malicious post-authentication behavior occurred.
 
-Interactive session creation
+🔐 Outcome:
+No evidence of malware execution, persistence, lateral movement, or command-and-control (C2) communication was identified. However, the activity revealed significant exposure risk due to the system’s configuration.
 
-Post-authentication process execution
+🎯 Investigation Objectives
 
-Outbound network connections initiated after authentication
+Identify the source and nature of abnormal authentication behavior
 
-Tools Used
+Confirm whether successful access resulted in compromise
+
+Analyze post-authentication process execution
+
+Review outbound network activity for signs of C2 or data exfiltration
+
+Determine impact and recommend remediation
+
+🧭 Scope of Investigation
+
+The investigation focused on the following telemetry:
+
+✅ Endpoint authentication logs (failed & successful logons)
+
+✅ Interactive Windows session creation
+
+✅ Post-authentication process execution
+
+✅ Outbound network connections initiated after authentication
+
+🛠️ Tools & Technologies Used
 
 Microsoft Defender for Endpoint
 
@@ -27,93 +50,137 @@ Microsoft Sentinel
 
 Kusto Query Language (KQL)
 
-Key Findings
-1. Abnormal Authentication Activity
+Azure-hosted Windows Virtual Machine
 
-A large number of failed authentication attempts were observed against the device js-mde-test.
+🧪 Key Findings
+1️⃣ Abnormal Authentication Activity
 
-The volume and frequency of failed logons were consistent with brute-force or password-guessing behavior targeting an exposed endpoint.
+A large number of failed logon attempts were observed against js-mde-test
 
-2. Successful Interactive Access
+The frequency and volume were consistent with brute-force or password-guessing behavior
 
-Following the failed attempts, account josh successfully authenticated to the device.
+The device was confirmed to be internet-exposed
 
-Desktop session artifacts (dwm-*, umfd-*) confirmed that an interactive Windows session was established.
+2️⃣ Successful Interactive Access
 
-Additional successful logons for the same account were observed over the investigation period.
+After the failed attempts, account josh successfully authenticated
 
-3. Post-Authentication Process Execution
+Windows desktop session artifacts (dwm-*, umfd-*) confirmed:
 
-PowerShell was executed under the context of the authenticated user.
+A real interactive user session
 
-PowerShell executions were launched interactively via explorer.exe and subsequently through chained PowerShell processes.
+Multiple successful logons occurred for the same account during the investigation window
 
-Execution included the use of ExecutionPolicy Bypass, which can be associated with administrative scripting or automation.
+3️⃣ Post-Authentication PowerShell Execution
 
-4. Network Activity Analysis
+PowerShell (powershell.exe) was executed under the authenticated user context
 
-Outbound network connections initiated by PowerShell were observed.
+Execution flow:
 
-All identified network destinations were associated with Microsoft or Azure infrastructure.
+Launched interactively via explorer.exe
 
-Communication occurred over standard HTTPS (port 443).
+Followed by chained PowerShell executions
 
-No connections to suspicious, unknown, or attacker-controlled infrastructure were identified.
+Commands included ExecutionPolicy Bypass, commonly associated with:
 
-No beaconing or anomalous network patterns were detected.
+Administrative scripting
 
-5. No Evidence of Malicious Follow-On Activity
+Automation
+
+Lab activity
+
+⚠️ This behavior warranted deeper inspection but is not inherently malicious on its own
+
+4️⃣ Network Activity Analysis
+
+PowerShell-initiated outbound connections were reviewed
+
+Observations:
+
+All destinations resolved to Microsoft / Azure infrastructure
+
+Communication occurred over HTTPS (port 443)
+
+No connections to unknown or attacker-controlled endpoints
+
+No beaconing or anomalous traffic patterns detected
+
+5️⃣ No Evidence of Malicious Follow-On Activity
 
 The investigation found no evidence of:
 
-Malware execution
+❌ Malware execution
 
-Credential dumping
+❌ Credential dumping
 
-Account modification or creation
+❌ Account creation or modification
 
-Persistence mechanisms
+❌ Persistence mechanisms
 
-Lateral movement to other systems
+❌ Lateral movement
 
-Assessment
+🧠 Analyst Assessment
 
-Based on the available evidence, the activity observed on js-mde-test is assessed as:
+Suspicious authentication behavior was confirmed against an exposed endpoint; however, no evidence of malicious post-authentication activity was identified.
 
-Suspicious authentication behavior against an exposed endpoint with subsequent legitimate interactive access, but no confirmed malicious post-authentication activity.
+This activity did not meet the threshold for a confirmed breach, but it represents elevated security risk due to exposure and authentication patterns.
 
-While the authentication pattern presents elevated risk, there is insufficient evidence to conclude that the system was compromised beyond authorized user access.
+📉 Impact Assessment
 
-Impact
+Data Loss: None identified
 
-No confirmed data loss
+Malware Infection: None observed
 
-No confirmed malware infection
+Spread to Other Systems: None detected
 
-No observed spread to additional systems
+Primary impact: Security exposure risk, not compromise.
 
-The primary impact is security exposure risk, not confirmed compromise.
+🛡️ Recommendations
 
-Recommendations
+To reduce the risk of future authentication-based attacks:
 
-To reduce the likelihood of future authentication-based attacks, the following actions are recommended:
+🔒 Restrict or remove direct internet exposure to RDP/authentication services
 
-Restrict or remove direct internet exposure to authentication services (e.g., RDP)
+🔐 Enforce Multi-Factor Authentication (MFA)
 
-Enforce multi-factor authentication where applicable
+🔑 Implement strong password & lockout policies
 
-Apply strong password and lockout policies
+👤 Limit interactive logon permissions
 
-Limit interactive logon permissions to required users only
+📊 Continue monitoring authentication anomalies
 
-Continue monitoring for anomalous authentication patterns
+📂 Investigation Artifacts
 
-Investigation Artifacts
+🕒 Investigation Timeline: Investigation-Timeline.md
 
-Investigation Timeline: See Investigation-Timeline.md
+🔍 KQL Queries: Located in the Queries/ directory
 
-KQL Queries: Located in the Queries/ directory
+✅ Conclusion
 
-Conclusion
+This investigation highlights how authentication telemetry, when correlated with process execution and network behavior, can effectively distinguish between attempted intrusion and legitimate activity.
 
-This investigation demonstrates the importance of monitoring authentication activity on internet-exposed systems. While no malicious post-authentication activity was identified in this case, the observed behavior highlights the risk posed by exposed endpoints and underscores the need for layered defensive controls.
+While no compromise was confirmed, the findings underscore the importance of reducing attack surface and maintaining strong identity controls on exposed systems.
+
+👨‍💻 Author
+
+Ty Kalandyk
+Cybersecurity | SOC & Incident Response Projects
+Focused on real-world detection, investigation, and defensive analysis
+
+🚀 Why this version works
+
+Clear visual flow
+
+Scannable sections
+
+Feels like a real incident response write-up
+
+Makes people want to keep reading
+
+If you want next, I can:
+
+Match the timeline styling to this README
+
+Add a Queries/ section with commentary
+
+Help you write a 30-second interview explanation for this project
