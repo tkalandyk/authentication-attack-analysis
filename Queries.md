@@ -3,7 +3,7 @@
 
 This document contains the complete set of KQL queries used during an incident response investigation into abnormal authentication activity on an internet-exposed Windows virtual machine (**js-mde-test**).
 
-Each query represents a deliberate investigative pivot following suspected brute-force authentication behavior and mirrors a real-world SOC / Incident Response workflow.
+Each query represents a deliberate investigative pivot following suspected brute-force authentication behavior.
 
 ---
 
