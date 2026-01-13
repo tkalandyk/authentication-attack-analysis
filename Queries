@@ -1,13 +1,3 @@
-📁 Recommended Queries/ Folder Structure
-File: 01_failed_authentication.kql
 
-// Purpose:
-// Identify abnormal failed authentication attempts against the target device.
-// This helps detect brute-force or password-guessing behavior.
-
-DeviceLogonEvents
-| where DeviceName contains "js-mde-test"
-| where ActionType == "LogonFailed"
-| summarize FailedLogons = count() by DeviceName
 
 
