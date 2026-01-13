@@ -81,6 +81,10 @@ DeviceLogonEvents
 
 </details>
 
+<img width="901" height="198" alt="image" src="https://github.com/user-attachments/assets/f284dc26-95fa-43d3-b8e9-c75d1ae2e265" />
+
+
+
 **Why this matters:**  
 This query isolates the identity involved (for example, **josh**) and provides first/last seen timestamps used later to build an accurate investigation timeline.
 
