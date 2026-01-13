@@ -1,6 +1,6 @@
 # 🚨 Authentication Attack Analysis  
 <p align="center">
-  <img src="PATH_TO_YOUR_IMAGE.png" width="700" />
+  <img src="ChatGPT Image Jan 12, 2026, 07_05_33 PM" src="https://github.com/user-attachments/assets/1b8926c6-afe7-4bec-bc80-43f1fc59bd53" width="700" />
 </p>
 
 <p align="center">
