@@ -50,6 +50,10 @@ DeviceLogonEvents
 
 </details>
 
+<img width="819" height="208" alt="image" src="https://github.com/user-attachments/assets/13db2a27-1fa8-4485-9cd8-cf7fa63a1731" />
+
+
+
 **Why this matters:**  
 A success following repeated failures is a classic brute-force pattern and represents a critical pivot point in the investigation.
 
