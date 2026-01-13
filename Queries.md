@@ -121,6 +121,11 @@ DeviceProcessEvents
 
 </details>
 
+
+<img width="928" height="290" alt="image" src="https://github.com/user-attachments/assets/451b0dc4-d7b4-47db-b64f-9e6691256618" />
+
+
+
 **Why this matters:**  
 Threat actors often rely on native tools to blend in with legitimate activity after gaining access.  
 This query helps detect suspicious post-authentication behavior without relying on malware signatures.
