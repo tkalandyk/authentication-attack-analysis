@@ -1,6 +1,15 @@
 # 🚨 Authentication Attack Analysis  
 
-<img width="1536" height="1024" alt="ChatGPT Image Jan 12, 2026, 07_05_33 PM" src="https://github.com/user-attachments/assets/2a4763c4-684a-48cc-96a9-1c210ac431a3" />
+<p align="center">
+  <img src="PATH_TO_YOUR_IMAGE.png" width="700" />
+</p>
+
+<p align="center">
+  <em>Incident Response Investigation · Endpoint & Identity Security</em>
+</p>
+
+---
+
 
 ### Incident Response Investigation · Endpoint & Identity Security
 
