@@ -2,9 +2,6 @@
 
 <img width="1536" height="1024" alt="ChatGPT Image Jan 12, 2026, 07_05_33 PM" src="https://github.com/user-attachments/assets/f6410866-1eea-4487-aecd-1def45bfcdde" />
 
-  <em>Incident Response Investigation · Endpoint & Identity Security</em>
-</p>
-
 ---
 
 
