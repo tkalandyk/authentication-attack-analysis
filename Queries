@@ -17,7 +17,3 @@ DeviceLogonEvents
 | where DeviceName contains "js-mde-test"
 | summarize FailedLogons = count() by DeviceName
 
-🧩 Query 2 — Successful Authentication Attempts
-
-Purpose:
-Confirm whether failed authentication attempts eventually resulted in successful access.
