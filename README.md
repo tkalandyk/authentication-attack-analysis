@@ -1,23 +1,15 @@
 # 🚨 Authentication Attack Analysis
 
 <p align="center">
-  <img src="./authentication-attack-cover.png" width="700" />
+  <img src="./images/A_digital_cybersecurity-themed_digital_artwork_dep.png" width="700" />
 </p>
 
 <p align="center">
   <em>Incident Response Investigation · Endpoint & Identity Security</em>
 </p>
 
-
 ---
 
-<img width="1536" height="1024" alt="ChatGPT Image Jan 12, 2026, 07_05_33 PM" src="https://github.com/user-attachments/assets/94d0a988-bcfb-45c4-a53c-64e3ad88c745" />
-
-
-  <em>Incident Response Investigation · Endpoint & Identity Security</em>
-</p>
-
----
 
 
 ### Incident Response Investigation · Endpoint & Identity Security
