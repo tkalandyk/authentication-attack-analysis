@@ -1,19 +1,26 @@
-# 🔍 Investigation Queries – Authentication Attack Analysis
+# 🔐 Authentication Attack Analysis — Investigation Queries
 
-This document contains the exact KQL queries used during the investigation, along with their purpose and observed results.
+This document contains the KQL queries used during the investigation of abnormal authentication activity on the internet-exposed Windows VM **js-mde-test**.  
+Each query represents a deliberate investigative pivot used to validate or disprove compromise following suspected brute-force authentication activity.
 
 ---
 
-## 🧩 Query 1 — Failed Authentication Attempts
+## ✅ QUERY 1 — Failed Authentication Attempts
 
 **Purpose:**  
-Identify brute-force or password-guessing activity against the endpoint.
+Identify the volume of failed logon attempts targeting the device to determine whether brute-force or password-guessing behavior occurred.
 
-**Data Source:** `DeviceLogonEvents`
+<details>
+<summary>🔍 View KQL Query</summary>
 
 ```kql
 DeviceLogonEvents
 | where ActionType == "LogonFailed"
 | where DeviceName contains "js-mde-test"
 | summarize FailedLogons = count() by DeviceName
+
+</details>
+
+Why this matters:
+A high number of failed logons against an exposed endpoint is a strong indicator of brute-force or credential-stuffing activity.
 
