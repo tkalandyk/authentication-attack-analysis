@@ -18,6 +18,7 @@ DeviceLogonEvents
 | where ActionType == "LogonFailed"
 | where DeviceName contains "js-mde-test"
 | summarize FailedLogons = count() by DeviceName
+
 </details>
 Why this matters:
 A high number of failed logons against an exposed endpoint is a strong indicator of brute-force or credential-stuffing activity.
@@ -106,8 +107,7 @@ DeviceNetworkEvents
     Protocol,
     RemoteUrl
 | order by Timestamp asc
+
 </details>
 Why this matters:
 Post-authentication outbound connections can indicate command-and-control (C2), payload download, or data exfiltration attempts.
-
-
