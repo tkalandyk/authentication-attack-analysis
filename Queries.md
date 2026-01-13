@@ -158,6 +158,10 @@ DeviceNetworkEvents
 
 </details>
 
+<img width="948" height="137" alt="image" src="https://github.com/user-attachments/assets/6ff054c7-a6c9-4dd7-a8ab-1770aacee3c2" />
+
+
+
 **Why this matters:**  
 Outbound connections following authentication can indicate command-and-control (C2), payload retrieval, or data exfiltration attempts.
 
