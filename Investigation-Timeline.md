@@ -1,102 +1,143 @@
-Investigation Timeline
+# ⏱ Investigation Timeline — Authentication Attack Analysis
 
-Project: Authentication Attack Analysis
-Device: js-mde-test
-Primary Account Observed: josh
-Data Sources: Microsoft Defender for Endpoint, Microsoft Sentinel
-Time Zone: UTC
+---
 
-Timeline of Events
-1. Repeated Failed Authentication Attempts Observed
+## 📌 Investigation Overview
 
-Date: 2025-12-24
-Time: Prior to 05:42 UTC
+| Field | Value |
+|------|------|
+| **Project** | Authentication Attack Analysis |
+| **Device** | js-mde-test |
+| **Primary Account** | josh |
+| **Data Sources** | Microsoft Defender for Endpoint, Microsoft Sentinel |
+| **Time Zone** | UTC |
 
-Multiple failed logon attempts were observed on device js-mde-test.
+---
 
-Failed authentication activity was identified through endpoint logon telemetry.
+## 🧭 Timeline of Events
 
-The volume and frequency of failures indicated abnormal authentication behavior against the device.
+---
 
-2. Successful Interactive Logon Detected
+### 🔴 Event 1 — Repeated Failed Authentication Attempts
 
-Date: 2025-12-24
-Time: 05:42:09 UTC
+**Date:** 2025-12-24  
+**Time:** Prior to 05:42 UTC  
 
-A successful logon was recorded for account josh on device js-mde-test.
+Multiple failed logon attempts were observed targeting the device **js-mde-test**.
 
-Logon type indicated an interactive user session.
+- Failed authentication activity identified via endpoint logon telemetry
+- Volume and frequency of failures exceeded normal baseline behavior
+- Pattern consistent with brute-force or password-guessing activity against an internet-exposed system
 
-This marked the first successful authentication following the failed logon attempts.
+---
 
-3. Desktop Session Components Created
+### 🟢 Event 2 — Successful Interactive Logon Detected
 
-Date: 2025-12-24
-Time: Immediately following successful logon
+**Date:** 2025-12-24  
+**Time:** 05:42:09 UTC  
 
-System session accounts (dwm-*, umfd-*) were created.
+A successful authentication was recorded for account **josh** on **js-mde-test**.
+
+- Logon type indicated an **interactive user session**
+- This event marked the **first successful logon** following the series of failed attempts
+- This transition represented a critical investigative pivot point
+
+---
+
+### 🖥 Event 3 — Desktop Session Components Created
+
+**Date:** 2025-12-24  
+**Time:** Immediately following successful logon  
+
+System session accounts were created:
+
+- `dwm-*`
+- `umfd-*`
 
 These components are associated with Windows graphical desktop sessions.
 
-Their creation confirms that an interactive user session was established on the device.
+**Interpretation:**  
+Their creation confirms that a full interactive desktop session was established, not a background or service-based logon.
 
-4. Additional Successful Interactive Logons
+---
 
-Date Range: 2025-12-24 to 2025-12-25
+### 🔁 Event 4 — Additional Successful Interactive Logons
 
-A total of 19 successful logons were recorded for account josh.
+**Date Range:** 2025-12-24 → 2025-12-25  
 
-Each successful logon resulted in the creation of desktop session components.
+Additional successful logons were observed for account **josh**.
 
-No additional user accounts were observed logging in successfully during this period.
+- **Total successful logons:** 19
+- Each successful logon resulted in desktop session creation
+- No other user accounts successfully authenticated during the investigation window
 
-5. PowerShell Execution Initiated by Logged-In User
+**Interpretation:**  
+Repeated interactive access indicates ongoing user activity rather than a single anomalous event.
 
-Date: 2025-12-24
-Time: Shortly after first successful logon
+---
 
-PowerShell (powershell.exe) was executed under the context of account josh.
+### ⚙️ Event 5 — PowerShell Execution Initiated
 
-Initial PowerShell execution was launched via explorer.exe, indicating direct user interaction.
+**Date:** 2025-12-24  
+**Time:** Shortly after first successful logon  
 
-Subsequent PowerShell executions were spawned by PowerShell itself, consistent with scripted or sequential command execution.
+PowerShell (`powershell.exe`) was executed under the context of account **josh**.
 
-PowerShell was executed with parameters including -ExecutionPolicy Bypass.
+- Initial execution launched via `explorer.exe`, indicating direct user interaction
+- Subsequent PowerShell processes were spawned by PowerShell itself
+- Execution parameters included **`-ExecutionPolicy Bypass`**
 
-6. PowerShell Network Activity Observed
+**Interpretation:**  
+While PowerShell usage can be legitimate, execution policy bypass is commonly examined during post-authentication investigations.
 
-Date: 2025-12-24
-Time: Following PowerShell execution
+---
 
-Outbound network connections initiated by powershell.exe were observed.
+### 🌐 Event 6 — PowerShell Network Activity Observed
 
-Network traffic was directed to Microsoft and Azure-associated endpoints.
+**Date:** 2025-12-24  
+**Time:** Following PowerShell execution  
 
-Communication occurred over standard HTTPS (port 443).
+Outbound network activity initiated by `powershell.exe` was observed.
 
-No connections to unknown, suspicious, or non-Microsoft infrastructure were identified.
+- Connections directed to **Microsoft / Azure-associated endpoints**
+- Traffic occurred over **HTTPS (TCP 443)**
+- No connections to unknown, suspicious, or attacker-controlled infrastructure
+- No repetitive beaconing or anomalous network patterns detected
 
-No repetitive beaconing or anomalous network patterns were observed.
+**Interpretation:**  
+Network activity was consistent with legitimate system or cloud-related communication.
 
-7. No Additional Suspicious Post-Authentication Activity Detected
+---
 
-No evidence of:
+### ✅ Event 7 — No Additional Suspicious Post-Authentication Activity
 
-Malware execution
+During the investigation window, **no evidence** was found of:
 
-Credential dumping
+- Malware execution
+- Credential dumping
+- Account modification or creation
+- Persistence mechanisms
+- Lateral movement to other systems
 
-Account modification
+No obfuscated commands or malicious binaries were identified.
 
-Persistence mechanisms
+---
 
-Lateral movement
+## 🧠 Timeline Summary
 
-No malicious binaries or obfuscated command execution was observed during the investigation window.
+- Authentication failures preceded successful interactive access
+- Access resulted in legitimate desktop session creation
+- PowerShell activity occurred but showed no malicious follow-on behavior
+- Network traffic remained within trusted Microsoft infrastructure
+- No indicators of compromise were identified beyond exposure risk
 
-End of Timeline
-Notes
+---
 
-This timeline represents a chronological reconstruction of observed events.
+## 📝 Notes
 
-Interpretations, conclusions, and remediation recommendations are documented separately in the final incident report.
+- This timeline represents a chronological reconstruction of observed events
+- Interpretations are based solely on available telemetry
+- Conclusions, risk assessment, and remediation recommendations are documented separately
+
+---
+
