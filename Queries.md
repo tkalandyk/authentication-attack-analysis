@@ -50,7 +50,8 @@ DeviceLogonEvents
 
 </details>
 
-<img width="819" height="208" alt="image" src="https://github.com/user-attachments/assets/13db2a27-1fa8-4485-9cd8-cf7fa63a1731" />
+<img width="867" height="123" alt="image" src="https://github.com/user-attachments/assets/ef232790-4b34-4514-9567-487a7545e737" />
+
 
 
 
