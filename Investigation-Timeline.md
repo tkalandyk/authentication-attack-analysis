@@ -1,4 +1,4 @@
-##Investigation Timeline
+Investigation Timeline
 
 Project: Authentication Attack Analysis
 Device: js-mde-test
