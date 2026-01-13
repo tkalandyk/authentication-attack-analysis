@@ -24,7 +24,9 @@ DeviceLogonEvents
 
 </details>
 
+
 <img width="989" height="135" alt="image" src="https://github.com/user-attachments/assets/dda1fb76-6137-4c2f-b61e-936fe75480b1" />
+
 
 **Why this matters:**  
 A high number of failed logons against an exposed endpoint is a strong indicator of brute-force or credential-stuffing activity.
