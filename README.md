@@ -1,10 +1,16 @@
 # 🚨 Authentication Attack Analysis  
-
 <p align="center">
   <img src="PATH_TO_YOUR_IMAGE.png" width="700" />
 </p>
 
 <p align="center">
+  <em>Incident Response Investigation · Endpoint & Identity Security</em>
+</p>
+
+---
+
+
+
   <em>Incident Response Investigation · Endpoint & Identity Security</em>
 </p>
 
