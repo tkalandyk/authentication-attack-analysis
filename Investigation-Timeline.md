@@ -136,7 +136,6 @@ No obfuscated commands or malicious binaries were identified.
 ## 📝 Notes
 
 - This timeline represents a chronological reconstruction of observed events
-- Interpretations are based solely on available telemetry
 - Conclusions, risk assessment, and remediation recommendations are documented separately
 
 ---
