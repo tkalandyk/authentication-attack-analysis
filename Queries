@@ -1,5 +1,92 @@
-✅ QUERY 1 — Failed Authentication Attempts
+// QUERY 1 — Failed Authentication Attempts
+// Purpose:
+// Identify abnormal failed authentication attempts against the target device.
+// Used to detect potential brute-force or password-guessing behavior.
 
-File: 01_failed_authentication.kql
+DeviceLogonEvents
+| where DeviceName contains "js-mde-test"
+| where ActionType == "LogonFailed"
+| summarize FailedLogons = count() by DeviceName
+
+
+// QUERY 2 — Successful Authentication & Identity Attribution
+// Purpose:
+// Identify successful logons on the target device and determine which
+// accounts authenticated successfully, including first/last seen timestamps.
+
+DeviceLogonEvents
+| where DeviceName contains "js-mde-test"
+| where ActionType == "LogonSuccess"
+| summarize
+    SuccessCount = count(),
+    FirstSeen    = min(TimeGenerated),
+    LastSeen     = max(TimeGenerated)
+  by AccountName
+| order by SuccessCount desc
+
+// QUERY 3 — Post-Authentication Process Execution (Broad)
+// Purpose:
+// Review all processes executed after the first successful authentication
+// to establish a complete activity timeline.
+
+DeviceProcessEvents
+| where DeviceName contains "js-mde-test"
+| where Timestamp > datetime(2025-12-24T05:42:09.5813634Z)
+| project
+    Timestamp,
+    AccountName,
+    FileName,
+    ProcessCommandLine,
+    InitiatingProcessFileName
+| order by Timestamp asc
+
+
+
+// QUERY 4 — Suspicious Tool Execution (Focused Pivot)
+// Purpose:
+// Identify execution of commonly abused binaries (LOLBins) after successful authentication
+// under the specific user context. This helps highlight suspicious post-authentication activity.
+
+DeviceProcessEvents
+| where DeviceName contains "js-mde-test"
+| where Timestamp > datetime(2025-12-24T05:42:09.5813634Z)
+| where AccountName == "josh"
+| where FileName in~ (
+    "powershell.exe","pwsh.exe","cmd.exe","wmic.exe","net.exe",
+    "whoami.exe","nltest.exe","rundll32.exe","reg.exe","schtasks.exe",
+    "sc.exe","bitsadmin.exe","certutil.exe","mshta.exe",
+    "wscript.exe","cscript.exe"
+)
+| project
+    Timestamp,
+    AccountName,
+    FileName,
+    ProcessCommandLine,
+    InitiatingProcessFileName
+| order by Timestamp asc
+
+// QUERY 5 — Post-Authentication Network Activity (PowerShell)
+// Purpose:
+// Determine whether post-authentication PowerShell activity resulted in outbound connections
+// to suspicious or attacker-controlled infrastructure.
+
+DeviceNetworkEvents
+| where DeviceName contains "js-mde-test"
+| where Timestamp > datetime(2025-12-24T05:42:09.5813634Z)
+| where InitiatingProcessFileName == "powershell.exe"
+| project
+    Timestamp,
+    InitiatingProcessAccountName,
+    InitiatingProcessFileName,
+    RemoteIP,
+    RemotePort,
+    Protocol,
+    RemoteUrl
+| order by Timestamp asc
+
+
+
+
+
 
 
