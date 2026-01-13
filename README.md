@@ -83,5 +83,82 @@ The investigation focused on the following telemetry:
 - Execution flow observed:
   - Launched via `explorer.exe`
   - Followed by chained PowerShell processes
-- Commands included **`ExecutionPolicy Bypas**
+- Commands included **`ExecutionPolicy Bypass`**
+
+⚠️ This behavior required deeper inspection but is **not inherently malicious**.
+
+---
+
+### 4️⃣ Network Activity Analysis
+
+- Outbound connections initiated by PowerShell were reviewed
+- Findings:
+  - All destinations resolved to **Microsoft / Azure infrastructure**
+  - Traffic occurred over **HTTPS (port 443)**
+  - ❌ No suspicious or attacker-controlled endpoints
+  - ❌ No beaconing or anomalous patterns
+
+---
+
+### 5️⃣ No Evidence of Malicious Follow-On Activity
+
+No evidence was found of:
+
+- ❌ Malware execution  
+- ❌ Credential dumping  
+- ❌ Account creation or modification  
+- ❌ Persistence mechanisms  
+- ❌ Lateral movement  
+
+---
+
+## 🧠 Analyst Assessment
+
+> **Suspicious authentication behavior was confirmed against an exposed endpoint; however, no malicious post-authentication activity was identified.**
+
+This activity did **not meet the threshold for a confirmed breach**, but it represents **elevated security risk**.
+
+---
+
+## 📉 Impact Assessment
+
+- **Data Loss:** None identified  
+- **Malware Infection:** None observed  
+- **Spread to Other Systems:** None detected  
+
+**Primary impact:** security exposure risk, not compromise.
+
+---
+
+## 🛡️ Recommendations
+
+- 🔒 Restrict or remove direct internet exposure to RDP/authentication services
+- 🔐 Enforce Multi-Factor Authentication (MFA)
+- 🔑 Apply strong password & lockout policies
+- 👤 Limit interactive logon permissions
+- 📊 Continue monitoring authentication anomalies
+
+---
+
+## 📂 Investigation Artifacts
+
+- 🕒 **Investigation Timeline:** `Investigation-Timeline.md`
+- 🔍 **KQL Queries:** Located in the `Queries/` directory
+
+---
+
+## ✅ Conclusion
+
+This investigation demonstrates how **authentication telemetry**, when correlated with **process execution and network activity**, enables analysts to distinguish between **attempted intrusion** and **legitimate behavior**.
+
+While no compromise was confirmed, the findings highlight the importance of **attack surface reduction** and strong identity controls.
+
+---
+
+## 👤 Author
+
+**Ty Kalandyk**  
+Cybersecurity · SOC · Incident Response  
+Focused on real-world detection, investigation, and defensive analysis
+
 
